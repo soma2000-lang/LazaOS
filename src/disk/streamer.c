@@ -25,15 +25,15 @@ int diskstreamer_seek(struct disk_stream* stream, int pos)
 
 int diskstreamer_read(struct disk_stream* stream, void* out, int total)
 {
-    int sector = stream->pos / PEACHOS_SECTOR_SIZE;
-    int offset = stream->pos % PEACHOS_SECTOR_SIZE;
+    int sector = stream->pos / LAZAOS_SECTOR_SIZE;
+    int offset = stream->pos % LAZAOS_SECTOR_SIZE;
     int total_to_read = total;
-    bool overflow = (offset+total_to_read) >= PEACHOS_SECTOR_SIZE;
-    char buf[PEACHOS_SECTOR_SIZE];
+    bool overflow = (offset+total_to_read) >= LAZAOS_SECTOR_SIZE;
+    char buf[LAZAOS_SECTOR_SIZE];
 
     if (overflow)
     {
-        total_to_read -= (offset+total_to_read) - PEACHOS_SECTOR_SIZE;
+        total_to_read -= (offset+total_to_read) - LAZAOS_SECTOR_SIZE;
     }
 
     int res = disk_read_block(stream->disk, sector, 1, buf);
